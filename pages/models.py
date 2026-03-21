@@ -295,6 +295,7 @@ class HeroSlide(models.Model):
 
 class SiteSettings(models.Model):
     contact_email = models.EmailField(default='contact@ajhopefoundation.org')
+    support_email = models.EmailField(default='help@ajhopefoundation.org')
     contact_phone = models.CharField(max_length=20, default='+1 (888) 123-4567')
     
     # Donation Methods

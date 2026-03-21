@@ -17,7 +17,7 @@ class SiteSettingsAdmin(ModelAdmin):
 
     fieldsets = (
         ('Contact Information', {
-            'fields': ('contact_email', 'contact_phone', 'headquarters_address', 'office_hours')
+            'fields': ('contact_email', 'support_email', 'contact_phone', 'headquarters_address', 'office_hours')
         }),
         ('Donation Methods', {
             'fields': ('zelle_email', 'cashapp_tag', 'check_payable_to')
