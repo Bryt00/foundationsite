@@ -11,7 +11,7 @@
     <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-800/10 rounded-full blur-[120px] pointer-events-none"></div>
     <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] pointer-events-none"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 py-20 lg:py-32">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 py-10 md:py-20 lg:py-32">
         <!-- Brand Header -->
         <div class="text-center mb-16 lg:mb-24 animate-fade-in">
             <h1 class="text-2xl md:text-6xl lg:text-7xl font-serif font-bold text-white tracking-[0.2em] md:tracking-widest uppercase mb-4 px-2">
@@ -24,15 +24,15 @@
         </div>
 
         <!-- Carousel Container -->
-        <div id="hero-carousel" class="relative overflow-hidden min-h-[500px]">
+        <div id="hero-carousel" class="relative overflow-hidden min-h-[600px] md:min-h-[500px]">
             {% for slide in hero_slides %}
             <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-1000 transform scale-95 pointer-events-none" data-active="{% if forloop.first %}true{% else %}false{% endif %}">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <!-- Left: Text Content -->
                     <div class="slide-content">
-                        <div class="flex items-center gap-3 mb-8">
+                        <div class="flex items-center gap-3 mb-4 md:mb-8">
                             <div class="w-8 h-px bg-accent/50"></div>
-                            <span class="text-accent text-xs font-black uppercase tracking-[0.3em]">Foundation Focus</span>
+                            <span class="text-accent text-[10px] md:text-xs font-black uppercase tracking-[0.3em]">Foundation Focus</span>
                         </div>
                         
                         <h2 class="text-3xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6 md:mb-8">
@@ -43,9 +43,9 @@
                             {{ slide.subtitle }}
                         </p>
                         
-                        <div class="flex flex-col sm:flex-row gap-6">
+                        <div class="flex flex-col sm:flex-row gap-4 md:gap-6">
                             <a href="{{ slide.button_link }}" 
-                               class="px-10 py-5 bg-accent text-white font-bold rounded-2xl shadow-2xl shadow-accent/20 hover:scale-105 hover:brightness-110 transition-all btn-glow text-center">
+                               class="px-8 md:px-10 py-4 md:py-5 bg-accent text-white font-bold rounded-2xl shadow-2xl shadow-accent/20 hover:scale-105 hover:brightness-110 transition-all btn-glow text-center text-sm md:text-base">
                                 {{ slide.button_text }}
                             </a>
                         </div>
@@ -54,16 +54,16 @@
                     <!-- Right: Image Frame -->
                     <div class="relative">
                         <div class="absolute -inset-4 bg-white/5 rounded-[40px] blur-2xl pointer-events-none"></div>
-                        <div class="relative rounded-[40px] overflow-hidden border border-white/10 shadow-2xl group">
+                        <div class="relative rounded-[24px] md:rounded-[40px] overflow-hidden border border-white/10 shadow-2xl group">
                             {% if slide.image %}
-                                <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-1000" 
+                                <img class="w-full aspect-[16/9] md:aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-1000" 
                                      src="{{ slide.image.url }}" 
                                      alt="{{ slide.title }}">
                             {% else %}
-                                <img class="w-full aspect-[4/3] object-cover" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200q=80" alt="Placeholder">
+                                <img class="w-full aspect-[16/9] md:aspect-[4/3] object-cover" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200q=80" alt="Placeholder">
                             {% endif %}
                             <div class="absolute inset-0 bg-gradient-to-t from-brand-950/60 via-transparent to-transparent"></div>
-                            <div class="absolute top-10 left-0 w-20 h-1.5 bg-accent rounded-r-full shadow-lg"></div>
+                            <div class="hidden md:block absolute top-10 left-0 w-20 h-1.5 bg-accent rounded-r-full shadow-lg"></div>
                         </div>
                     </div>
                 </div>
@@ -95,13 +95,13 @@
 </section>
 
 <!-- Impact Stats Bar -->
-<section class="relative z-30 -mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in stagger-3">
-    <div class="glass dark:bg-white/95 rounded-[32px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] p-8 md:p-12 overflow-hidden border-white/20">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-gray-100">
+<section class="relative z-30 -mt-8 md:-mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in stagger-3">
+    <div class="glass dark:bg-white/95 rounded-[24px] md:rounded-[32px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] p-6 md:p-12 overflow-hidden border-white/20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-gray-100">
             {% for stat in impact_stats %}
             <div class="px-6 py-4 md:py-0 group">
-                <div class="text-xs text-accent uppercase tracking-[0.3em] font-black mb-4 group-hover:translate-y-[-2px] transition-transform">{{ stat.label }}</div>
-                <div class="text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter group-hover:scale-105 transition-transform duration-500">
+                <div class="text-[10px] md:text-xs text-accent uppercase tracking-[0.3em] font-black mb-2 md:mb-4 group-hover:translate-y-[-2px] transition-transform">{{ stat.label }}</div>
+                <div class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter group-hover:scale-105 transition-transform duration-500">
                     {{ stat.value }}<span class="text-accent">+</span>
                 </div>
             </div>

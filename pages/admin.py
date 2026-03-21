@@ -6,7 +6,7 @@ from pages.models import (
     ImpactStat, FundAllocation, SuccessStory,
     Volunteer, ContactMessage, GalleryImage,
     Event, FAQ, HeroSlide, SiteSettings,
-    ProgramMedia, EventMedia
+    ProgramMedia, EventMedia, RegionalOffice, RegionalOfficePhone
 )
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -177,3 +177,21 @@ class FundAllocationAdmin(ModelAdmin):
 class SuccessStoryAdmin(ModelAdmin):
     list_display = ('title', 'tag', 'order')
     list_editable = ('order',)
+
+class RegionalOfficePhoneInline(TabularInline):
+    model = RegionalOfficePhone
+    extra = 1
+
+@admin.register(RegionalOffice)
+class RegionalOfficeAdmin(ModelAdmin):
+    list_display = ('name', 'region', 'order')
+    list_editable = ('order',)
+    inlines = [RegionalOfficePhoneInline]
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'region', 'description', 'order')
+        }),
+        ('Contact Information', {
+            'fields': ('address', 'email')
+        }),
+    )

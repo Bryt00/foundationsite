@@ -328,3 +328,25 @@ class SiteSettings(models.Model):
         if not self.pk and SiteSettings.objects.exists():
             return
         super().save(*args, **kwargs)
+
+class RegionalOffice(models.Model):
+    name = models.CharField(max_length=100)
+    region = models.CharField(max_length=100, help_text="e.g. North America, East Africa")
+    address = models.TextField()
+    email = models.EmailField(blank=True, null=True)
+    description = models.TextField(blank=True, help_text="Short description of the office focus")
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.name} ({self.region})"
+
+class RegionalOfficePhone(models.Model):
+    office = models.ForeignKey(RegionalOffice, on_delete=models.CASCADE, related_name='phones')
+    phone_number = models.CharField(max_length=20)
+    label = models.CharField(max_length=50, blank=True, help_text="e.g. Main, Support, SMS")
+
+    def __str__(self):
+        return f"{self.phone_number} ({self.label})" if self.label else self.phone_number

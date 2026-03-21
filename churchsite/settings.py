@@ -193,6 +193,11 @@ UNFOLD = {
                         "icon": "auto_awesome",
                         "link": "/admin/pages/successstory/",
                     },
+                    {
+                        "title": "Regional Offices",
+                        "icon": "location_on",
+                        "link": "/admin/pages/regionaloffice/",
+                    },
                 ],
             },
         ],

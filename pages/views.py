@@ -5,7 +5,8 @@ from .models import (
     NewsStory, TeamMember, TimelineEvent, CoreValue, 
     ProgramCategory, Program, ProgramStat,
     ImpactStat, FundAllocation, SuccessStory,
-    GalleryImage, Event, FAQ, HeroSlide
+    GalleryImage, Event, FAQ, HeroSlide,
+    RegionalOffice
 )
 
 def gallery(request):
@@ -99,15 +100,23 @@ def join(request):
     return render(request, 'pages/join.html', {'form': form})
 
 def contact(request):
+    regional_offices = RegionalOffice.objects.prefetch_related('phones').all()
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your message has been sent. We will get back to you shortly.')
-            return render(request, 'pages/contact.html', {'form': ContactForm(), 'success': True})
+            return render(request, 'pages/contact.html', {
+                'form': ContactForm(), 
+                'success': True,
+                'regional_offices': regional_offices
+            })
     else:
         form = ContactForm()
-    return render(request, 'pages/contact.html', {'form': form})
+    return render(request, 'pages/contact.html', {
+        'form': form,
+        'regional_offices': regional_offices
+    })
 
 def story_detail(request, slug):
     story = get_object_or_404(NewsStory, slug=slug)
