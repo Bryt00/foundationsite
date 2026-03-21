@@ -47,6 +47,7 @@ pip install gunicorn setproctitle
 # 4. Django setup (Migrations, Static files)
 echo "=> Running Django setup tasks..."
 # Note: set your environment variables (SECRET_KEY, DEBUG=False, ALLOWED_HOSTS) here or in a .env file
+sudo mkdir -p $PROJECT_DIR/staticfiles
 python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --noinput
@@ -55,7 +56,7 @@ python manage.py collectstatic --noinput
 echo "=> Setting file and folder permissions..."
 
 # -- staticfiles: readable by Nginx (www-data), owned by app user
-sudo mkdir -p $PROJECT_DIR/staticfiles
+
 sudo chown -R $USER:www-data $PROJECT_DIR/staticfiles
 sudo chmod -R 755 $PROJECT_DIR/staticfiles
 
