@@ -64,7 +64,9 @@
                                 <h4 class="font-bold">Email Inquiries</h4>
                             </div>
                             <p class="text-brand-200 text-sm leading-relaxed pl-14">
-                                {{ site_settings.contact_email }}<br>Support: {{ site_settings.support_email }}</p>
+                                {{ site_settings.contact_email }}
+                                {% if site_settings.support_email %}<br>Support: {{ site_settings.support_email }}{% endif %}
+                            </p>
                         </div>
 
                         <div class="group">
