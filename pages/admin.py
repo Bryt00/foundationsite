@@ -8,6 +8,8 @@ from pages.models import (
     Event, FAQ, HeroSlide, SiteSettings,
     ProgramMedia, EventMedia
 )
+from django.shortcuts import redirect
+from django.urls import reverse
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(ModelAdmin):
@@ -38,8 +40,19 @@ class SiteSettingsAdmin(ModelAdmin):
         return super().has_add_permission(request)
 
     def has_delete_permission(self, request, obj=None):
-        # Prevent deletion of the settings
+        # Prevent deletion of the settings to ensure singleton exists
         return False
+
+    def changelist_view(self, request, extra_context=None):
+        """
+        Redirect the list view to the only instance's change view,
+        or to the add view if no instance exists.
+        """
+        obj = SiteSettings.objects.first()
+        if obj:
+            return redirect(reverse(f'admin:{obj._meta.app_label}_{obj._meta.model_name}_change', args=(obj.pk,)))
+        else:
+            return redirect(reverse(f'admin:{SiteSettings._meta.app_label}_{SiteSettings._meta.model_name}_add'))
 
 @admin.register(HeroSlide)
 class HeroSlideAdmin(ModelAdmin):

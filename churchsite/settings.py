@@ -154,5 +154,47 @@ UNFOLD = {
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": True,
+        "navigation": [
+            {
+                "title": "Main Content",
+                "items": [
+                    {
+                        "title": "Programs",
+                        "icon": "auto_stories",
+                        "link": "/admin/pages/program/",
+                    },
+                    {
+                        "title": "News Stories",
+                        "icon": "news",
+                        "link": "/admin/pages/newsstory/",
+                    },
+                    {
+                        "title": "Events",
+                        "icon": "event",
+                        "link": "/admin/pages/event/",
+                    },
+                ],
+            },
+            {
+                "title": "Site Configuration",
+                "items": [
+                    {
+                        "title": "Global Settings",
+                        "icon": "settings",
+                        "link": "/admin/pages/sitesettings/",
+                    },
+                    {
+                        "title": "Vision & Mission",
+                        "icon": "ads_click",
+                        "link": "/admin/pages/sitesettings/",
+                    },
+                    {
+                        "title": "Success Stories",
+                        "icon": "auto_awesome",
+                        "link": "/admin/pages/successstory/",
+                    },
+                ],
+            },
+        ],
     },
 }

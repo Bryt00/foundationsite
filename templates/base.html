@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}AJ HOPE FOUNDATION{% endblock %}</title>
+    <title>{% block title %}FOUNDATION{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -208,7 +208,7 @@
         <nav id="navbar" class="sticky top-0 z-[100] transition-all duration-500 border-b border-transparent">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                    class="glass dark:bg-white/90 rounded-2xl flex justify-between h-16 items-center px-6 mt-4 shadow-[0_8px_32px_rgba(0,0,0,0.05)] border-white/40">
+                    class="glass dark:bg-white/90 rounded-2xl flex justify-between h-16 items-center px-4 md:px-6 mt-2 md:mt-4 shadow-[0_8px_32px_rgba(0,0,0,0.05)] border-white/40">
 
                     <!-- Logo -->
                     <a href="{% url 'landing' %}" class="flex-shrink-0 flex items-center gap-3 group">
@@ -216,9 +216,9 @@
                             class="h-10 w-auto group-hover:scale-110 transition-transform duration-500">
                         <div class="flex flex-col">
                             <span
-                                class="text-lg font-black text-gray-900 leading-none tracking-tighter uppercase antialiased">
+                                class="text-base md:text-lg font-black text-gray-900 leading-none tracking-tighter uppercase antialiased">
                                 AJ HOPE<span
-                                    class="text-accent underline decoration-4 decoration-accent/30 underline-offset-4">
+                                    class="hidden sm:inline text-accent underline decoration-4 decoration-accent/30 underline-offset-4 ml-1">
                                     FOUNDATION</span>
                             </span>
                         </div>
@@ -246,9 +246,9 @@
                     </div>
 
                     <!-- Mobile menu button -->
-                    <div class="lg:hidden flex items-center gap-4">
+                    <div class="lg:hidden flex items-center gap-2">
                         <a href="{% url 'join' %}"
-                            class="px-4 py-2 text-xs font-bold text-white bg-brand-700 rounded-lg shadow-md">Support</a>
+                            class="px-3 py-2 text-[10px] font-bold text-white bg-brand-700 rounded-lg shadow-md uppercase tracking-wider">Support</a>
                         <button id="mobile-menu-button" type="button"
                             class="p-2 text-gray-500 hover:text-brand-700 bg-gray-50 rounded-lg focus:outline-none">
                             <svg id="menu-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -311,8 +311,7 @@
                                     class="text-brand-500"> FOUNDATION</span></span>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed mb-8">
-                            A global humanitarian movement dedicated to bridging inequality gaps and restoring hope to
-                            underserved communities through faith-based service.
+                            {{ site_settings.mission_statement }}
                         </p>
                         <div class="flex gap-4">
                             {% if site_settings.facebook_url %}
@@ -424,9 +423,13 @@
     </div>
 
     <!-- Global Multimedia Modal -->
-    <div id="media-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/95 backdrop-blur-sm p-4">
-        <button id="close-media-modal" class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-[210]">
-            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div id="media-modal"
+        class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/95 backdrop-blur-sm p-4">
+        <button id="close-media-modal"
+            class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-[210]">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
         </button>
         <div class="w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl relative">
             <div id="modal-content" class="w-full h-full flex items-center justify-center">
@@ -470,7 +473,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const modal = document.getElementById('media-modal');
             const closeModal = document.getElementById('close-media-modal');
-            
+
             if (closeModal) {
                 closeModal.addEventListener('click', () => {
                     modal.classList.add('hidden');
