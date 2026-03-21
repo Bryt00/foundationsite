@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}News & Stories - AJ HOPE FOUNDATION{% endblock %}
+
+{% block content %}
+<!-- Page Header / News Spotlight -->
+<section class="bg-gray-900 border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {% if featured_story %}
+            <div class="relative group cursor-pointer overflow-hidden rounded-2xl shadow-2xl">
+                <img class="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-700"
+                    src="{% if featured_story.image %}{{ featured_story.image.url }}{% else %}https://images.unsplash.com/photo-1497366216548-37526070297c?w=800{% endif %}"
+                    alt="{{ featured_story.title }}">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                <div class="absolute bottom-10 left-10 right-10">
+                    <span
+                        class="inline-block py-1 px-3 rounded-full bg-accent text-white text-xs font-bold uppercase tracking-widest mb-4">Featured
+                        Story</span>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">{{
+                        featured_story.title }}</h2>
+                    <p class="text-gray-300 text-lg mb-6 line-clamp-2">{{ featured_story.summary }}</p>
+                    <a href="{% url 'story_detail' featured_story.slug %}"
+                        class="inline-flex items-center text-accent font-bold group">
+                        Read Full Story
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="bg-gray-800 h-96 rounded-2xl flex items-center justify-center">
+                <p class="text-gray-500">No featured story available.</p>
+            </div>
+            {% endif %}
+            <div>
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-8">Newsroom</h1>
+                <p class="text-xl text-gray-400 mb-10 font-light leading-relaxed">
+                    Stay updated with stories of hope, press releases, and announcements from our fields of operation.
+                </p>
+                <!-- Recent Links -->
+                <div class="space-y-6">
+                    {% for story in other_stories_preview %}
+                    <a href="{% url 'story_detail' story.slug %}"
+                        class="flex items-center space-x-4 p-4 rounded-xl border border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer group">
+                        <div
+                            class="text-accent font-bold text-xl uppercase tracking-tighter w-12 text-center border-r border-gray-700 pr-4">
+                            {{ story.date_published|date:"M" }} <span class="block text-2xl">{{
+                                story.date_published|date:"d" }}</span>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold group-hover:text-accent transition-colors">{{ story.title }}
+                            </h4>
+                            <p class="text-gray-500 text-sm">{{ story.get_category_display }} &bull; {{
+                                story.reading_time }} min read</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News Grid & Sidebar -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-12 gap-16">
+
+            <!-- Main Content: Article Grid -->
+            <div class="lg:col-span-8">
+                <div class="flex items-center justify-between mb-12 border-b border-gray-100 pb-6">
+                    <h2 class="text-3xl font-serif font-bold text-gray-900">Latest Updates</h2>
+                    <div class="flex gap-4">
+                        <button class="text-brand-600 font-bold border-b-2 border-brand-600 text-sm pb-1">All</button>
+                        <button
+                            class="text-gray-400 hover:text-brand-600 font-bold text-sm pb-1 transition-colors">Impact</button>
+                        <button
+                            class="text-gray-400 hover:text-brand-600 font-bold text-sm pb-1 transition-colors">Events</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {% for story in page_obj %}
+                    <!-- Article {{ forloop.counter }} -->
+                    <article class="group">
+                        <div class="relative h-64 rounded-xl overflow-hidden mb-6 shadow-md">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                src="{% if story.image %}{{ story.image.url }}{% else %}https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=800{% endif %}"
+                                alt="{{ story.title }}">
+                            <span
+                                class="absolute top-4 left-4 bg-{% if story.category == 'impact' %}brand-600{% elif story.category == 'event' %}accent{% else %}emerald-600{% endif %} text-white text-xs font-bold px-3 py-1 rounded-full uppercase">{{
+                                story.get_category_display }}</span>
+                        </div>
+                        <h3
+                            class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-600 transition-colors cursor-pointer">
+                            <a href="{% url 'story_detail' story.slug %}">{{ story.title }}</a></h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed font-light">{{ story.summary }}</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+                            <div class="flex items-center text-xs text-gray-400">
+                                <span>{{ story.date_published|date:"M d, Y" }}</span>
+                                <span class="mx-2">&bull;</span>
+                                <span>{{ story.reading_time }} min read</span>
+                            </div>
+                            <a href="{% url 'story_detail' story.slug %}"
+                                class="text-xs font-bold text-brand-600 uppercase tracking-widest">Read More &rarr;</a>
+                        </div>
+                    </article>
+                    {% empty %}
+                    <p class="text-gray-500">No stories found.</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                <div class="mt-16 flex items-center justify-center space-x-2">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"
+                        class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center text-gray-400 hover:border-brand-600 hover:text-brand-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                    </a>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <span
+                        class="w-10 h-10 rounded bg-brand-600 text-white shadow-md flex items-center justify-center font-bold">{{
+                        i }}</span>
+                    {% else %}
+                    <a href="?page={{ i }}"
+                        class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">{{
+                        i }}</a>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"
+                        class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center text-gray-400 hover:border-brand-600 hover:text-brand-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4 mt-16 lg:mt-0">
+                <!-- Newsletter -->
+                <div class="bg-brand-900 rounded-2xl p-8 text-white mb-10 sticky top-24">
+                    <h3 class="text-2xl font-serif font-bold mb-4">The Impact Weekly</h3>
+                    <p class="text-brand-100/80 mb-6 text-sm">Join 2,500+ neighbors specifically interested in our news
+                        and field updates.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Email address"
+                            class="w-full bg-white/10 border border-white/20 rounded-md px-4 py-3 text-sm focus:ring-accent focus:border-accent"
+                            required>
+                        <button
+                            class="w-full bg-accent text-white font-bold py-3 rounded-md hover:bg-yellow-600 transition-colors">Join
+                            Mailing List</button>
+                    </form>
+                    <p class="text-[10px] text-brand-300 mt-4 text-center">No spam, just hope. Unsubscribe anytime.</p>
+                </div>
+
+                <!-- Tags / Categories -->
+                <div class="bg-gray-50 border border-gray-100 rounded-2xl p-8 mb-10">
+                    <h3 class="text-lg font-bold text-gray-900 mb-6">Explore Topics</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#"
+                            class="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">Emergency
+                            Relief</a>
+                        <a href="#"
+                            class="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">Youth
+                            Mentorship</a>
+                        <a href="#"
+                            class="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">Food
+                            Security</a>
+                        <a href="#"
+                            class="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">Annual
+                            Reports</a>
+                        <a href="#"
+                            class="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">Volunteer
+                            Stories</a>
+                        <a href="#"
+                            class="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600 hover:border-brand-600 hover:text-brand-600 transition-colors">Policy
+                            Change</a>
+                    </div>
+                </div>
+
+                <!-- Recent Events (Mini) -->
+                <div class="bg-white border border-gray-100 rounded-2xl p-8">
+                    <h3 class="text-lg font-bold text-gray-900 mb-6">Upcoming Events</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4 group cursor-pointer">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-accent/10 text-accent rounded-lg flex flex-col items-center justify-center font-bold">
+                                <span class="text-xs uppercase">Dec</span>
+                                <span class="text-lg leading-tight">10</span>
+                            </div>
+                            <div>
+                                <h4
+                                    class="text-sm font-bold text-gray-900 leading-tight group-hover:text-brand-600 transition-colors">
+                                    Annual Holiday Toy Drive Gala</h4>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 group cursor-pointer">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-brand-100 text-brand-600 rounded-lg flex flex-col items-center justify-center font-bold">
+                                <span class="text-xs uppercase">Dec</span>
+                                <span class="text-lg leading-tight">18</span>
+                            </div>
+                            <div>
+                                <h4
+                                    class="text-sm font-bold text-gray-900 leading-tight group-hover:text-brand-600 transition-colors">
+                                    Volunteer Orientation: Winter Session</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'landing' %}#events"
+                        class="block text-center text-xs font-bold text-brand-600 mt-8 hover:underline">View Full
+                        Calendar &rarr;</a>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

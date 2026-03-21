@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Impact - AJ HOPE FOUNDATION{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+        <img class="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
+            alt="Impact Hero">
+        <div class="absolute inset-0 bg-brand-900/80 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-gray-900/50"></div>
+    </div>
+    <div class="relative max-w-5xl mx-auto px-4 text-center text-white z-10">
+        <span
+            class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold tracking-wide uppercase mb-6 backdrop-blur-sm">
+            2024 Annual Report
+        </span>
+        <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">Measuring Change,<br>One Life at a
+            Time.</h1>
+        <p class="text-xl text-gray-200 max-w-2xl mx-auto font-light leading-relaxed">
+            Transparency is at the heart of what we do. See how your contributions are transforming communities across
+            the globe.
+        </p>
+    </div>
+</section>
+
+<!-- Stats Grid (Floating) -->
+<section class="relative z-20 -mt-16 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-gray-100">
+            <div
+                class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center divide-x-0 md:divide-x divide-gray-100">
+                {% for stat in stats %}
+                <div class="group {% if not forloop.first %}md:border-l md:border-gray-100{% endif %}">
+                    <div
+                        class="text-4xl md:text-5xl font-bold text-{% if stat.color_choice == 'accent' %}accent{% else %}brand-600{% endif %} mb-2 group-hover:scale-110 transition-transform duration-300">
+                        {{ stat.value }}</div>
+                    <div class="text-xs md:text-sm text-gray-500 uppercase tracking-widest font-semibold">{{ stat.label
+                        }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Areas / Graphics -->
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-4">Where Your Money Goes</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-brand-500 to-accent mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <!-- Visual Chart Representation (CSS/HTML) -->
+            <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden">
+                <h3 class="text-lg font-bold mb-6">Allocation of Funds</h3>
+                <div class="space-y-6">
+                    {% for allocation in allocations %}
+                    <div>
+                        <div class="flex justify-between text-sm font-medium mb-1">
+                            <span>{{ allocation.label }}</span>
+                            <span>{{ allocation.percentage }}%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-3">
+                            <div class="h-3 rounded-full"
+                                style="--width: {{ allocation.percentage }}%; --bg: {{ allocation.color_hex }}; width: var(--width); background-color: var(--bg);">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-100 text-sm text-gray-500 italic">
+                    *Audited financial data from fiscal year 2024.
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div>
+                <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6">Efficiency & Integrity</h3>
+                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                    We take our responsibility to our donors seriously. Every dollar entrusted to AJ HOPE FOUNDATION is
+                    carefully managed to ensure maximum impact in the communities we serve.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mt-1 mr-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </span>
+                        <span class="text-gray-700">Platinum Seal of Transparency</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mt-1 mr-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </span>
+                        <span class="text-gray-700">Annual Independent Audits</span>
+                    </li>
+                </ul>
+                <a href="#" class="text-brand-700 font-bold hover:underline">Download Annual Report &rarr;</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Stories (Magazine Style) -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-serif font-bold text-gray-900 mb-12">Stories of Hope</h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {% for story in stories %}
+            <!-- Story {{ forloop.counter }} -->
+            <div class="group cursor-pointer">
+                <div class="relative h-96 rounded-2xl overflow-hidden mb-6 shadow-lg">
+                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        src="{% if story.image %}{{ story.image.url }}{% else %}https://images.unsplash.com/photo-1531417430048-8f35a099a531?w=800{% endif %}"
+                        alt="{{ story.title }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <span
+                            class="bg-{% if forloop.counter|divisibleby:2 %}brand-600{% else %}accent{% endif %} text-xs font-bold px-2 py-1 rounded uppercase tracking-wide mb-2 inline-block">{{
+                            story.tag }}</span>
+                        <h3 class="text-2xl font-bold">{{ story.title }}</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-lg leading-relaxed mb-4">
+                    {{ story.summary }}
+                </p>
+                <a href="{% url 'success_story_detail' story.slug %}"
+                    class="text-brand-600 font-bold group-hover:text-brand-800 transition-colors">Read Full Story
+                    &rarr;</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-brand-900 relative overflow-hidden">
+    <!-- Abstract Shapes -->
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-brand-800 opacity-20 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-accent opacity-10 blur-3xl"></div>
+
+    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+        <h2 class="text-4xl font-serif font-bold text-white mb-6">Join the Movement</h2>
+        <p class="text-xl text-brand-100 mb-10 font-light">
+            Your support makes these stories possible. Whether it's $5 or $500, every gift changes a life.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8 mt-12">
+            <!-- New Donation Methods Summary -->
+            <div class="glass dark:bg-white/5 p-8 rounded-3xl border border-white/10 text-left">
+                <h3 class="text-xl font-bold text-white mb-6 uppercase tracking-widest text-center">Ways to Support</h3>
+                <div class="space-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-accent font-black">ZELLE</span>
+                        <span class="text-white font-medium">{{ site_settings.zelle_email }}</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-accent font-black">CASHAPP</span>
+                        <span class="text-white font-medium">{{ site_settings.cashapp_tag }}</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-3">
+                        <span class="text-accent font-black">CHECKS</span>
+                        <span class="text-white font-medium italic">{{ site_settings.check_payable_to }}</span>
+                    </div>
+                </div>
+                <p class="mt-6 text-[10px] text-brand-100/40 uppercase tracking-[0.2em] text-center italic">"Your prayers above everything else is needed always."</p>
+                <p class="mt-2 text-[10px] text-emerald-400/60 uppercase tracking-[0.2em] text-center font-bold">All donations are tax-deductible</p>
+            </div>
+
+            <!-- Legacy Buttons Commented Out -->
+            <!-- 
+            <div class="flex flex-col justify-center gap-4">
+                <button class="px-8 py-4 bg-accent text-white font-bold rounded shadow-lg hover:bg-yellow-600 transition-all transform hover:scale-105">
+                    Make a Donation
+                </button>
+                <button class="px-8 py-4 bg-transparent border border-white/30 text-white font-bold rounded hover:bg-white/10 transition-all backdrop-blur-sm">
+                    Become a Volunteer
+                </button>
+            </div>
+            -->
+
+            <!-- Volunteer Link -->
+            <div class="flex flex-col justify-center gap-6 p-8">
+                <p class="text-brand-100/60 text-lg font-light italic leading-relaxed">
+                    Prefer to give your time? Join our global family of volunteers.
+                </p>
+                <a href="{% url 'join' %}"
+                    class="px-8 py-4 bg-white text-brand-900 font-black rounded-xl hover:bg-brand-50 transition-all shadow-2xl text-center uppercase tracking-widest text-xs">
+                    Join as a Volunteer
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

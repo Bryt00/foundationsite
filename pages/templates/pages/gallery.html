@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block title %}Gallery - AJ HOPE FOUNDATION{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-brand-900 py-24 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+        <div
+            class="absolute top-0 left-0 w-96 h-96 bg-brand-500 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2">
+        </div>
+        <div
+            class="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl translate-x-1/2 translate-y-1/2">
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+        <h1 class="text-5xl md:text-6xl font-serif font-bold text-white mb-6">Our Shared <span
+                class="text-accent italic">Moments</span></h1>
+        <p class="text-xl text-brand-100 max-w-2xl mx-auto font-light leading-relaxed">
+            Capturing the impact, the joy, and the community of AJ HOPE FOUNDATION across the globe.
+        </p>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap justify-center gap-4 mb-16">
+            <button
+                class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-bold transition-all bg-brand-700 text-white shadow-lg shadow-brand-200"
+                data-filter="all">
+                All Photos
+            </button>
+            {% for code, label in categories %}
+            <button
+                class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-bold transition-all bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                data-filter="{{ code }}">
+                {{ label }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- Image/Video Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for image in images %}
+            <div class="gallery-item group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-500 aspect-square cursor-pointer"
+                data-category="{{ image.category }}"
+                data-video-url="{{ image.video_url|default:'' }}"
+                data-video-file="{% if image.video_file %}{{ image.video_file.url }}{% endif %}"
+                data-title="{{ image.title }}">
+                
+                {% if image.image %}
+                    <img src="{{ image.image.url }}" alt="{{ image.title }}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                {% else %}
+                    <div class="w-full h-full bg-brand-900 flex items-center justify-center">
+                        <svg class="w-12 h-12 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                {% endif %}
+
+                <!-- Video Icon Overlay -->
+                {% if image.is_video %}
+                <div class="absolute inset-0 flex items-center justify-center z-10">
+                    <div class="w-16 h-16 bg-accent/90 rounded-full flex items-center justify-center text-white shadow-2xl transform group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Info Overlay -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 z-20">
+                    <span
+                        class="text-accent text-xs font-bold uppercase tracking-widest mb-2 block translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        {{ image.get_category_display }} {% if image.is_video %}(Video){% endif %}
+                    </span>
+                    <h3
+                        class="text-white text-xl font-bold mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                        {{ image.title }}
+                    </h3>
+                    {% if image.caption %}
+                    <p
+                        class="text-gray-300 text-sm font-light line-clamp-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                        {{ image.caption }}
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full py-20 text-center">
+                <div
+                    class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-gray-900 mb-2">No items yet</h3>
+                <p class="text-gray-500">We're just getting started capturing our journey. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Video Modal -->
+<div id="video-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 backdrop-blur-sm p-4">
+    <button id="close-modal" class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+    <div class="w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl relative">
+        <div id="video-container" class="w-full h-full">
+            <!-- Video/Iframe will be injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+        const items = document.querySelectorAll('.gallery-item');
+        const modal = document.getElementById('video-modal');
+        const closeModal = document.getElementById('close-modal');
+        const videoContainer = document.getElementById('video-container');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+
+                // Update Button Styles
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-brand-700', 'text-white', 'shadow-lg', 'shadow-brand-200');
+                    b.classList.add('bg-white', 'text-gray-600', 'hover:bg-gray-100', 'border', 'border-gray-200');
+                });
+                btn.classList.add('bg-brand-700', 'text-white', 'shadow-lg', 'shadow-brand-200');
+                btn.classList.remove('bg-white', 'text-gray-600', 'hover:bg-gray-100', 'border', 'border-gray-200');
+
+                // Filter Items
+                items.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.classList.remove('hidden');
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            item.classList.add('hidden');
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Video Modal Logic
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const videoUrl = item.getAttribute('data-video-url');
+                const videoFile = item.getAttribute('data-video-file');
+                
+                if (videoUrl || videoFile) {
+                    openVideo(videoUrl, videoFile);
+                }
+            });
+        });
+
+        function openVideo(url, file) {
+            let html = '';
+            if (url) {
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    const id = url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop();
+                    html = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${id}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                } else if (url.includes('vimeo.com')) {
+                    const id = url.split('/').pop();
+                    html = `<iframe class="w-full h-full" src="https://player.vimeo.com/video/${id}?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                } else {
+                    html = `<p class="text-white p-8">Unsupported video source. <a href="${url}" class="underline">View directly</a></p>`;
+                }
+            } else if (file) {
+                html = `<video class="w-full h-full" controls autoplay><source src="${file}" type="video/mp4">Your browser does not support the video tag.</video>`;
+            }
+
+            videoContainer.innerHTML = html;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            videoContainer.innerHTML = '';
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal.click();
+        });
+    });
+</script>
+
+<style>
+    .gallery-item {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+</style>
+{% endblock %}
