@@ -330,6 +330,12 @@ class SiteSettings(models.Model):
         null=True,
         help_text="If empty, a default Unsplash image will be used."
     )
+    about_mission_image = models.ImageField(
+        upload_to='site_settings/', 
+        blank=True, 
+        null=True,
+        help_text="Image for the Mission & Vision section on the About page. If empty, a default Unsplash image will be used."
+    )
 
     charity_navigator_url = models.URLField(blank=True, null=True)
     guidestar_url = models.URLField(blank=True, null=True)
