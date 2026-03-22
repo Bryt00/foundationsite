@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Get Involved - AJ HOPE FOUNDATION{% endblock %}
 
@@ -255,22 +256,22 @@
                     {% if site_settings.guidestar_url %}
                     <a href="{{ site_settings.guidestar_url }}" target="_blank">
                         <img class="h-12 w-auto"
-                            src="https://upload.wikimedia.org/wikipedia/commons/e/e0/GuideStar_Logo.svg" alt="GuideStar">
+                            src="{% static 'img/guidestar_logo.png' %}" alt="GuideStar">
                     </a>
                     {% else %}
                     <img class="h-12 w-auto"
-                        src="https://upload.wikimedia.org/wikipedia/commons/e/e0/GuideStar_Logo.svg" alt="GuideStar">
+                        src="{% static 'img/guidestar_logo.png' %}" alt="GuideStar">
                     {% endif %}
                     
                     {% if site_settings.charity_navigator_url %}
                     <a href="{{ site_settings.charity_navigator_url }}" target="_blank">
                         <img class="h-12 w-auto"
-                            src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Charity_Navigator_Logo.svg"
+                            src="{% static 'img/charity_navigator_logo.svg' %}"
                             alt="Charity Navigator">
                     </a>
                     {% else %}
                     <img class="h-12 w-auto"
-                        src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Charity_Navigator_Logo.svg"
+                        src="{% static 'img/charity_navigator_logo.svg' %}"
                         alt="Charity Navigator">
                     {% endif %}
                 </div>

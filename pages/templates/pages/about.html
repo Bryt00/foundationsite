@@ -14,7 +14,7 @@
     <div class="relative max-w-5xl mx-auto px-4 text-center text-white z-10">
         <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4">Our Heart & Mission</h1>
         <p class="text-xl text-brand-100 max-w-2xl mx-auto font-light leading-relaxed">
-            Faith in action. Compassion in motion. A legacy of service since 1995.
+            Faith in action. Compassion in motion.
         </p>
     </div>
 </section>
@@ -116,10 +116,14 @@
                     <div class="text-center">
                         <div
                             class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 backdrop-blur">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="{{ value.icon_svg }}"></path>
-                            </svg>
+                            {% if "<svg" in value.icon_svg %}
+                                {{ value.icon_svg|safe }}
+                            {% else %}
+                                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="{{ value.icon_svg }}"></path>
+                                </svg>
+                            {% endif %}
                         </div>
                         <h3 class="text-xl font-bold mb-4">{{ value.title }}</h3>
                         <p class="text-brand-100/80 leading-relaxed">{{ value.description }}</p>

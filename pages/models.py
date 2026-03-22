@@ -311,7 +311,7 @@ class SiteSettings(models.Model):
 
     # New Dynamic Content Fields
     headquarters_address = models.TextField(default='123 AJ HOPE Avenue, Faith Plaza, Springfield, IL 62704')
-    office_hours = models.CharField(max_length=100, default='Mon-Fri, 9am - 5pm CST')
+    office_hours = models.CharField(max_length=100, default='Mon-Fri, 9am - 5pm CST', blank=True, null=True)
     mission_statement = models.TextField(default="To demonstrate God's love through practical service, sustainable development, and unwavering community support.")
     vision_statement = models.TextField(default="A city where no one is forgotten, and every person has the opportunity to fulfill their potential.")
     charity_navigator_url = models.URLField(blank=True, null=True)
