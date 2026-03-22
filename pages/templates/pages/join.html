@@ -164,20 +164,33 @@
 
                         <!-- New Donation Methods -->
                         <div class="space-y-6">
+                            {% if site_settings.zelle_email %}
                             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/40 transition-all group/item">
                                 <div class="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-2">Zelle</div>
                                 <div class="text-white text-lg font-bold">{{ site_settings.zelle_email }}</div>
                             </div>
+                            {% endif %}
                             
+                            {% if site_settings.cashapp_tag %}
                             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/40 transition-all group/item">
                                 <div class="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-2">Cashapp</div>
                                 <div class="text-white text-lg font-bold">{{ site_settings.cashapp_tag }}</div>
                             </div>
+                            {% endif %}
                             
+                            {% if site_settings.check_payable_to %}
                             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/40 transition-all group/item">
                                 <div class="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-2">Checks Payable To</div>
                                 <div class="text-white text-lg font-bold italic font-serif">{{ site_settings.check_payable_to }}</div>
                             </div>
+                            {% endif %}
+
+                            {% for method in donation_methods %}
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/40 transition-all group/item">
+                                <div class="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-2">{{ method.name }}</div>
+                                <div class="text-white text-lg font-bold">{{ method.value }}</div>
+                            </div>
+                            {% endfor %}
                         </div>
 
                         <div class="mt-10 pt-8 border-t border-white/10">

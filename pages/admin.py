@@ -6,7 +6,8 @@ from pages.models import (
     ImpactStat, FundAllocation, SuccessStory,
     Volunteer, ContactMessage, GalleryImage,
     Event, FAQ, HeroSlide, SiteSettings,
-    ProgramMedia, EventMedia, RegionalOffice, RegionalOfficePhone
+    ProgramMedia, EventMedia, RegionalOffice, RegionalOfficePhone,
+    DonationMethod
 )
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -195,3 +196,8 @@ class RegionalOfficeAdmin(ModelAdmin):
             'fields': ('address', 'email')
         }),
     )
+
+@admin.register(DonationMethod)
+class DonationMethodAdmin(ModelAdmin):
+    list_display = ('name', 'value', 'order', 'is_active')
+    list_editable = ('order', 'is_active')

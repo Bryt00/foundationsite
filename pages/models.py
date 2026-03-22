@@ -351,3 +351,15 @@ class RegionalOfficePhone(models.Model):
 
     def __str__(self):
         return f"{self.phone_number} ({self.label})" if self.label else self.phone_number
+
+class DonationMethod(models.Model):
+    name = models.CharField(max_length=100, help_text="e.g. PayPal, Venmo, Zelle")
+    value = models.CharField(max_length=200, help_text="The email, tag, or account number")
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'name']
+
+    def __str__(self):
+        return self.name

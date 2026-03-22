@@ -6,7 +6,7 @@ from .models import (
     ProgramCategory, Program, ProgramStat,
     ImpactStat, FundAllocation, SuccessStory,
     GalleryImage, Event, FAQ, HeroSlide,
-    RegionalOffice
+    RegionalOffice, DonationMethod
 )
 
 def gallery(request):
@@ -97,7 +97,11 @@ def join(request):
             return render(request, 'pages/join.html', {'form': VolunteerForm(), 'success': True})
     else:
         form = VolunteerForm()
-    return render(request, 'pages/join.html', {'form': form})
+    donation_methods = DonationMethod.objects.filter(is_active=True)
+    return render(request, 'pages/join.html', {
+        'form': form,
+        'donation_methods': donation_methods
+    })
 
 def contact(request):
     regional_offices = RegionalOffice.objects.prefetch_related('phones').all()
