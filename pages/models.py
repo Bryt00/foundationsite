@@ -314,6 +314,23 @@ class SiteSettings(models.Model):
     office_hours = models.CharField(max_length=100, default='Mon-Fri, 9am - 5pm CST', blank=True, null=True)
     mission_statement = models.TextField(default="To demonstrate God's love through practical service, sustainable development, and unwavering community support.")
     vision_statement = models.TextField(default="A city where no one is forgotten, and every person has the opportunity to fulfill their potential.")
+    
+    # Home Page Mission Section (Dynamic)
+    home_mission_title = models.CharField(
+        max_length=255, 
+        default='Driven by Compassion, <br><span class="text-accent">Guided by Faith.</span>',
+        help_text="Supports HTML for styling (e.g. &lt;br&gt;, &lt;span&gt;)"
+    )
+    home_mission_subtitle = models.TextField(
+        default='Founded on the principles of unconditional support, AJ HOPE FOUNDATION operates at the intersection of practical relief and spiritual empowerment.'
+    )
+    home_mission_image = models.ImageField(
+        upload_to='site_settings/', 
+        blank=True, 
+        null=True,
+        help_text="If empty, a default Unsplash image will be used."
+    )
+
     charity_navigator_url = models.URLField(blank=True, null=True)
     guidestar_url = models.URLField(blank=True, null=True)
 

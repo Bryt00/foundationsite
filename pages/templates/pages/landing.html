@@ -174,8 +174,8 @@
         <div class="lg:grid lg:grid-cols-2 lg:gap-24 items-center">
             <div class="mb-16 lg:mb-0 relative animate-fade-in">
                 <div class="relative z-10">
-                    <img class="rounded-[40px] shadow-2xl border-8 border-white group hover:scale-[1.02] transition-transform duration-700"
-                        src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                    <img class="rounded-[40px] shadow-2xl border-8 border-white group hover:scale-[1.02] transition-transform duration-700 w-full object-cover aspect-[4/3]"
+                        src="{% if site_settings.home_mission_image %}{{ site_settings.home_mission_image.url }}{% else %}https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80{% endif %}"
                         alt="Mission">
                 </div>
                 <div class="absolute -top-12 -left-12 w-48 h-48 bg-accent/10 rounded-full blur-3xl"></div>
@@ -189,11 +189,11 @@
             </div>
             <div class="animate-fade-in stagger-1">
                 <span class="text-accent font-black uppercase tracking-[0.3em] text-xs mb-6 block">Our Purpose</span>
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-gray-900 mb-8 leading-[1.1]">Driven by
-                    Compassion, <br><span class="text-accent">Guided by Faith.</span></h2>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-gray-900 mb-8 leading-[1.1]">
+                    {{ site_settings.home_mission_title|safe }}
+                </h2>
                 <p class="text-xl text-gray-500 mb-8 leading-relaxed font-light">
-                    Founded on the principles of unconditional support, AJ HOPE FOUNDATION operates at the intersection
-                    of practical relief and spiritual empowerment.
+                    {{ site_settings.home_mission_subtitle }}
                 </p>
                 <div class="flex gap-4">
                     <a href="{% url 'about' %}"

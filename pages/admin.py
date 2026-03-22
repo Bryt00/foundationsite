@@ -26,6 +26,9 @@ class SiteSettingsAdmin(ModelAdmin):
         ('Mission & Vision', {
             'fields': ('mission_statement', 'vision_statement')
         }),
+        ('Home Page Mission Section', {
+            'fields': ('home_mission_title', 'home_mission_subtitle', 'home_mission_image')
+        }),
         ('Social Links', {
             'fields': ('facebook_url', 'instagram_url', 'twitter_url', 'linkedin_url')
         }),
