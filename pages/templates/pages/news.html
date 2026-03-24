@@ -17,8 +17,7 @@
                     <span
                         class="inline-block py-1 px-3 rounded-full bg-accent text-white text-xs font-bold uppercase tracking-widest mb-4">Featured
                         Story</span>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">{{
-                        featured_story.title }}</h2>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">{{ featured_story.title }}</h2>
                     <p class="text-gray-300 text-lg mb-6 line-clamp-2">{{ featured_story.summary }}</p>
                     <a href="{% url 'story_detail' featured_story.slug %}"
                         class="inline-flex items-center text-accent font-bold group">
@@ -48,14 +47,12 @@
                         class="flex items-center space-x-4 p-4 rounded-xl border border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer group">
                         <div
                             class="text-accent font-bold text-xl uppercase tracking-tighter w-12 text-center border-r border-gray-700 pr-4">
-                            {{ story.date_published|date:"M" }} <span class="block text-2xl">{{
-                                story.date_published|date:"d" }}</span>
+                            {{ story.date_published|date:"M" }} <span class="block text-2xl">{{ story.date_published|date:"d" }}</span>
                         </div>
                         <div>
                             <h4 class="text-white font-bold group-hover:text-accent transition-colors">{{ story.title }}
                             </h4>
-                            <p class="text-gray-500 text-sm">{{ story.get_category_display }} &bull; {{
-                                story.reading_time }} min read</p>
+                            <p class="text-gray-500 text-sm">{{ story.get_category_display }} &bull; {{ story.reading_time }} min read</p>
                         </div>
                     </a>
                     {% endfor %}
@@ -92,8 +89,7 @@
                                 src="{% if story.image %}{{ story.image.url }}{% else %}https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=800{% endif %}"
                                 alt="{{ story.title }}">
                             <span
-                                class="absolute top-4 left-4 bg-{% if story.category == 'impact' %}brand-600{% elif story.category == 'event' %}accent{% else %}emerald-600{% endif %} text-white text-xs font-bold px-3 py-1 rounded-full uppercase">{{
-                                story.get_category_display }}</span>
+                                class="absolute top-4 left-4 bg-{% if story.category == 'impact' %}brand-600{% elif story.category == 'event' %}accent{% else %}emerald-600{% endif %} text-white text-xs font-bold px-3 py-1 rounded-full uppercase">{{ story.get_category_display }}</span>
                         </div>
                         <h3
                             class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-600 transition-colors cursor-pointer">
