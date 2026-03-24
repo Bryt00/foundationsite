@@ -330,6 +330,11 @@ class SiteSettings(models.Model):
         null=True,
         help_text="If empty, a default Unsplash image will be used."
     )
+    about_mission_title = models.CharField(
+        max_length=255,
+        default='Driven by a vision of a restored and flourishing community.',
+        help_text="Headline for the Mission & Vision section on the About page. Supports HTML."
+    )
     about_mission_image = models.ImageField(
         upload_to='site_settings/', 
         blank=True, 

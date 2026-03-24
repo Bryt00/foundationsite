@@ -70,15 +70,6 @@
             </div>
             {% endfor %}
 
-            <!-- Navigation Arrows (Sides) -->
-            {% if hero_slides|length > 1 %}
-            <button id="prev-btn" class="absolute left-2 md:left-4 bottom-8 md:top-1/2 md:-translate-y-1/2 z-30 p-2 md:p-3 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-md transition-all group border border-white/10">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            </button>
-            <button id="next-btn" class="absolute right-2 md:right-4 bottom-8 md:top-1/2 md:-translate-y-1/2 z-30 p-2 md:p-3 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-md transition-all group border border-white/10">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-            {% endif %}
 
             <!-- Dots (Bottom) -->
             {% if hero_slides|length > 1 %}
@@ -215,8 +206,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         const slides = document.querySelectorAll('.carousel-slide');
         const dots = document.querySelectorAll('#carousel-dots button');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
         let currentSlide = 0;
 
         function showSlide(index) {
@@ -235,19 +224,6 @@
             currentSlide = index;
         }
 
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                let next = (currentSlide + 1) % slides.length;
-                showSlide(next);
-            });
-        }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                let prev = (currentSlide - 1 + slides.length) % slides.length;
-                showSlide(prev);
-            });
-        }
 
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => showSlide(i));
@@ -257,11 +233,11 @@
         if (slides.length > 0) {
             showSlide(0);
             
-            // Auto slide every 5 seconds
+            // Auto slide every 15 seconds
             setInterval(() => {
                 let next = (currentSlide + 1) % slides.length;
                 showSlide(next);
-            }, 6000);
+            }, 15000);
         }
     });
 </script>
