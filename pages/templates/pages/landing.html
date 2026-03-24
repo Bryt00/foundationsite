@@ -24,12 +24,12 @@
         </div>
 
         <!-- Carousel Container -->
-        <div id="hero-carousel" class="relative overflow-hidden min-h-[600px] md:min-h-[500px]">
+        <div id="hero-carousel" class="relative overflow-hidden min-h-[700px] md:min-h-[600px] lg:min-h-[650px] pb-24 md:pb-32">
             {% for slide in hero_slides %}
             <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-1000 transform scale-95 pointer-events-none" data-active="{% if forloop.first %}true{% else %}false{% endif %}">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <!-- Left: Text Content -->
-                    <div class="slide-content">
+                    <div class="slide-content pb-16 lg:pb-0">
                         <div class="flex items-center gap-3 mb-4 md:mb-8">
                             <div class="w-8 h-px bg-accent/50"></div>
                             <span class="text-accent text-[10px] md:text-xs font-black uppercase tracking-[0.3em]">Foundation Focus</span>
